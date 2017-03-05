@@ -44,6 +44,9 @@ function removeLine($string, $file, $match, $dryRun) {
             echo "String to overwrite at position $start:\n";
             echo "-->$createLine<--\n";
         } else {
+            echo "Overwriten line at position $start:\n";
+            echo "-->$createLine<--\n";
+
             fseek($file, $start);
             fwrite($file, $overwrite);
         }
