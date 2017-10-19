@@ -32,16 +32,8 @@ class AnalyzeCommand extends Command {
 
         $io->text("File to open: " . $input->getArgument('file_name'));
         $analyzer = new Analyzer($input->getArgument('file_name'));
-
-        try {
-            //$this->validateRequired($input, array('file_name'));
-
-            // TODO Your code execution goes here (if possible use services)
-
-        } catch (\Exception $e) {
-            $io->error($e->getMessage());
-            exit(0);
-        }
+        $editor = new Editor();
+        $analyzer->saveToFile();
 
         $io->success('Command executed successfully.');
     }
