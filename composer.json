@@ -1,4 +1,12 @@
 {
+    "name": "mysqldump-filter",
+    "description": "utility for processing mysql dump files",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "MysqldumpProcess\\": "src/"
+         }
+    },
     "require": {
         "symfony/console": "^3.3"
     }

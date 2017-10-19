@@ -11,11 +11,11 @@ require __DIR__ . '/vendor/autoload.php';
 error_reporting(E_ALL);
 
 use Symfony\Component\Console\Application;
-use MysqldumpProcess\Analyze;
+use MysqldumpProcess\AnalyzeCommand;
 
 $application = new Application('mysqldump-process', '1.0');
 
 $application->addCommands(array(
-        new Analyze(),
+        new AnalyzeCommand(),
 ));
 $application->run();
