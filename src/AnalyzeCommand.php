@@ -32,7 +32,7 @@ class AnalyzeCommand extends Command {
 
         $io->text("File to open: " . $input->getArgument('file_name'));
         $analyzer = new Analyzer($input->getArgument('file_name'));
-        $editor = new Editor();
+        $editor = new Editor($analyzer, $input->getArgument('file_name'));
         $analyzer->saveToFile();
 
         $io->success('Command executed successfully.');

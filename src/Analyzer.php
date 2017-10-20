@@ -15,32 +15,34 @@ class Analyzer {
             die("Couldn't open the file.");
         }
 
-        $currentTable = null;
         $this->structure = array();
+        $currentTable = null;
+        $previousLine = null;
 
         while (($buffer = fgets($handle)) !== false) {
             if($buffer) {
                 //echo substr($buffer, 0, 10) . PHP_EOL;
-                $currentPosition = ftell($handle);
                 if(substr_compare($buffer, "DROP TABLE", 0, 10) == 0) {
+                    $currentPosition = ftell($handle);
                     echo $buffer;
                     preg_match('/(?<=`)\w+(?=`)/', $buffer, $matches);
                     if($currentTable != $matches[0] && $currentTable === null){
-                        $this->structure[$matches[0]]['begin'] = $currentPosition;
+                        $this->structure[$matches[0]]['begin'] = $previousLine;
                     }
                     if($currentTable != $matches[0] && $currentTable !== null) {
-                        $this->structure[$matches[0]]['begin'] = $currentPosition;
+                        $this->structure[$matches[0]]['begin'] = $previousLine;
                         $this->structure[$currentTable]['end'] = $currentPosition - 1;
                     }
                     $currentTable = $matches[0];
                     echo $currentTable . PHP_EOL;
                 }
+                $previousLine = ftell($handle);
             }
         }
         $this->structure[$currentTable]['end'] = $currentPosition - 1;
         var_dump($this->structure);
-
     }
+
     private function keywordCheck($line)
     {
         $tableName = false;
